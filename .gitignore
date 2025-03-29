@@ -1,0 +1,7 @@
+# Server Files
+.venv
+__pycache__
+
+# Enviorenment Files
+.env.*
+!.env.template
