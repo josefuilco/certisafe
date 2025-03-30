@@ -1,1 +1,6 @@
+python-dotenv
 fastapi[standard]
+sqlmodel
+alembic
+asyncpg
+psycopg2
