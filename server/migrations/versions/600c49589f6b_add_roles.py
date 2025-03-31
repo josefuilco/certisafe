@@ -19,8 +19,13 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    """Upgrade schema."""
-    pass
+    op.bulk_insert(
+        'roles',
+        [
+            { 'name': 'colaborador' },
+            { 'name': 'asistente' },
+        ]
+    )
 
 
 def downgrade() -> None:
