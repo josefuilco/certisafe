@@ -10,6 +10,8 @@ from typing import Sequence, Union
 from alembic import op
 import sqlalchemy as sa
 
+from src.persistence.entities import RoleEntity
+
 
 # revision identifiers, used by Alembic.
 revision: str = '600c49589f6b'
@@ -20,7 +22,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 def upgrade() -> None:
     op.bulk_insert(
-        'roles',
+        RoleEntity.__table__,
         [
             { 'name': 'colaborador' },
             { 'name': 'asistente' },
@@ -29,5 +31,4 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    """Downgrade schema."""
-    pass
+    op.execute('DELETE FROM roles WHERE name IN ("colaborador", "asistente")')
