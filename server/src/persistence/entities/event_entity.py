@@ -11,7 +11,7 @@ class EventEntity(SQLModel, table=True):
     # Attributes
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(max_length=50, nullable=False)
-    description: str = Field(max_length=250, nullable=False)
+    description: Optional[str] = Field(max_length=250, nullable=True)
     start_date: str = Field(nullable=False)
     end_date: str = Field(nullable=False)
 

@@ -12,7 +12,7 @@ class UserEntity(SQLModel, table=True):
     __tablename__ = 'users'
 
     # Attributes
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: str = Field(max_length=36, primary_key=True)
     names: str = Field(max_length=25, nullable=False)
     surnames: str = Field(max_length=25, nullable=False)
     email: str = Field(max_length=80, unique=True, nullable=False)

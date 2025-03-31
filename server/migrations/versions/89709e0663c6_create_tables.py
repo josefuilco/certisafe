@@ -1,19 +1,18 @@
-"""generate tables
+"""create tables
 
-Revision ID: bee125b49432
+Revision ID: 89709e0663c6
 Revises: 
-Create Date: 2025-03-31 00:18:30.821920
+Create Date: 2025-03-31 00:47:24.352963
 
 """
 from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
-import sqlmodel
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'bee125b49432'
+revision: str = '89709e0663c6'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -31,7 +30,7 @@ def upgrade() -> None:
     op.create_table('events',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sqlmodel.sql.sqltypes.AutoString(length=50), nullable=False),
-    sa.Column('description', sqlmodel.sql.sqltypes.AutoString(length=250), nullable=False),
+    sa.Column('description', sqlmodel.sql.sqltypes.AutoString(length=250), nullable=True),
     sa.Column('start_date', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('end_date', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.PrimaryKeyConstraint('id')
@@ -42,8 +41,14 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
-    op.create_table('users',
+    op.create_table('roles',
     sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sqlmodel.sql.sqltypes.AutoString(length=25), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
+    op.create_table('users',
+    sa.Column('id', sqlmodel.sql.sqltypes.AutoString(length=36), nullable=False),
     sa.Column('names', sqlmodel.sql.sqltypes.AutoString(length=25), nullable=False),
     sa.Column('surnames', sqlmodel.sql.sqltypes.AutoString(length=25), nullable=False),
     sa.Column('email', sqlmodel.sql.sqltypes.AutoString(length=80), nullable=False),
@@ -62,12 +67,14 @@ def upgrade() -> None:
     sa.Column('id', sqlmodel.sql.sqltypes.AutoString(length=36), nullable=False),
     sa.Column('password', sqlmodel.sql.sqltypes.AutoString(length=64), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
+    sa.Column('role_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_event_link',
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('event_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
@@ -82,6 +89,7 @@ def downgrade() -> None:
     op.drop_table('user_event_link')
     op.drop_table('accounts')
     op.drop_table('users')
+    op.drop_table('roles')
     op.drop_table('faculties')
     op.drop_table('events')
     op.drop_table('conditions')
