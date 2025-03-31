@@ -1,5 +1,6 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import TYPE_CHECKING, Optional, List
+from datetime import date, time
 from .user_event_link_entity import UserEventLinkEntity
 
 if TYPE_CHECKING:
@@ -11,9 +12,12 @@ class EventEntity(SQLModel, table=True):
     # Attributes
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(max_length=50, nullable=False)
+    capacity: int = Field(default=0, nullable=False)
     description: Optional[str] = Field(max_length=250, nullable=True)
-    start_date: str = Field(nullable=False)
-    end_date: str = Field(nullable=False)
+    day: date = Field(nullable=False)
+    start: time = Field(nullable=False)
+    end: time = Field(nullable=False)
+    have_certificate: bool = Field(default=False, nullable=False)
 
     # Relations
     users: List['UserEntity'] = Relationship(back_populates='events', link_model=UserEventLinkEntity)
