@@ -19,7 +19,6 @@ down_revision: Union[str, None] = 'f2e6df9c82e5'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
-
 def upgrade() -> None:
     op.bulk_insert(
         RoleEntity.__table__,
@@ -31,4 +30,10 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    op.execute('DELETE FROM roles WHERE name IN ("colaborador", "asistente")')
+    delete_statement = sa.delete(
+        RoleEntity.__table__
+    ).where(
+        RoleEntity.__table__.c.name.in_(['colaborador', 'asistente'])
+    )
+    
+    op.execute(delete_statement)
