@@ -1,0 +1,2 @@
+# Certisafe: Monolitic App
+Si buscas una manera de poder gestionar tus eventos de investigación de manera sencilla, estas en el lugar correcto, podras encontrar la serie de pasos y herramientas que necesitas para poder correr este aplicativo y empezar a usarlo.
