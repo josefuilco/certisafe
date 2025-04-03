@@ -3,7 +3,6 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     AsyncSession
 )
-from sqlalchemy import create_engine
 from typing import AsyncGenerator
 from .enviroment import env
 
