@@ -1,8 +1,8 @@
-"""create tables
+"""initial migration
 
-Revision ID: f2e6df9c82e5
+Revision ID: b4e503c14d7b
 Revises: 
-Create Date: 2025-03-31 00:56:31.170814
+Create Date: 2025-04-03 12:22:51.571990
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 import sqlmodel
 
 # revision identifiers, used by Alembic.
-revision: str = 'f2e6df9c82e5'
+revision: str = 'b4e503c14d7b'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -28,7 +28,7 @@ def upgrade() -> None:
     sa.UniqueConstraint('name')
     )
     op.create_table('events',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sqlmodel.sql.sqltypes.AutoString(length=36), nullable=False),
     sa.Column('name', sqlmodel.sql.sqltypes.AutoString(length=50), nullable=False),
     sa.Column('capacity', sa.Integer(), nullable=False),
     sa.Column('description', sqlmodel.sql.sqltypes.AutoString(length=250), nullable=True),
@@ -67,7 +67,7 @@ def upgrade() -> None:
     sa.UniqueConstraint('email')
     )
     op.create_table('accounts',
-    sa.Column('id', sqlmodel.sql.sqltypes.AutoString(length=36), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('password', sqlmodel.sql.sqltypes.AutoString(length=64), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=False),
     sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
@@ -78,7 +78,7 @@ def upgrade() -> None:
     )
     op.create_table('user_event_link',
     sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
-    sa.Column('event_id', sa.Integer(), nullable=False),
+    sa.Column('event_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('attended', sa.Boolean(), nullable=False),
     sa.ForeignKeyConstraint(['event_id'], ['events.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
