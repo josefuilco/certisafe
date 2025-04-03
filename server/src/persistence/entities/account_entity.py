@@ -9,7 +9,7 @@ class AccountEntity(SQLModel, table=True):
     __tablename__ = 'accounts'
 
     # Attributes
-    id: str = Field(max_length=36, primary_key=True)
+    id: Optional[int] = Field(default=None, primary_key=True)
     password: str = Field(max_length=64, nullable=False)
     active: bool = Field(default=True, nullable=False)
 

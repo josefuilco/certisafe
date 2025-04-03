@@ -10,7 +10,7 @@ class EventEntity(SQLModel, table=True):
     __tablename__ = 'events'
 
     # Attributes
-    id: Optional[int] = Field(default=None, primary_key=True)
+    id: str = Field(max_length=36, primary_key=True)
     name: str = Field(max_length=50, nullable=False)
     capacity: int = Field(default=0, nullable=False)
     description: Optional[str] = Field(max_length=250, nullable=True)
