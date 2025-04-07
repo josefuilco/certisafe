@@ -14,17 +14,16 @@ class UserRepository:
     # Private method to map UserEntity to User
     def _map_user_entity_to_user(self, user_entity: UserEntity) -> User:
         return User(
+            id=user_entity.id,
             names=user_entity.names,
             surnames=user_entity.surnames,
             email=user_entity.email,
             cellphone=user_entity.cellphone,
             dni=user_entity.dni,
-            condition=Condition(id=user_entity.condition_id, name=user_entity.condition.name),
-            faculty=Faculty(id=user_entity.faculty_id, name=user_entity.faculty.name)
         )
 
     # Public methods
-    async def create(self, user: User) -> None:
+    async def create(self, user: User) -> User:
         try:
             user_entity = UserEntity(
                 id=str(uuid4()),
@@ -39,6 +38,8 @@ class UserRepository:
             self._session.add(user_entity)
             await self._session.commit()
             await self._session.refresh(user_entity)
+
+            return self._map_user_entity_to_user(user_entity)
         except SQLAlchemyError:
             self._session.rollback()
             raise CreationConflictException('El usuario ya se encuentra registrado.')
@@ -59,6 +60,8 @@ class UserRepository:
             raise UserNotFoundException()
         
         user_found = self._map_user_entity_to_user(user_entity)
+        user_found.condition = Condition(id=user_entity.condition_id, name=user_entity.condition.name)
+        user_found.faculty = Faculty(id=user_entity.faculty_id, name=user_entity.faculty.name)
 
         return user_found
     
