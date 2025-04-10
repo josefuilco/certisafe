@@ -10,12 +10,12 @@ class AccountRepository:
     def __init__(self, session: AsyncSession):
         self._session = session
 
-    async def create(self, user_id: str, password: str) -> Account:
+    async def create(self, user_id: str, password: str, role: Role) -> Account:
         try:
             account_entity = AccountEntity(
                 password=password,
                 user_id=user_id,
-                role_id=Role.ATTENDER
+                role_id=role.value
             )
             self._session.add(account_entity)
             await self._session.commit()
