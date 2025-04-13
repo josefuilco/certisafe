@@ -26,9 +26,9 @@ def upgrade() -> None:
     op.bulk_insert(
         condition_table,
         [
-            { 'name': 'estudiante' },
-            { 'name': 'docente' },
-            { 'name': 'adminitrativo' },
+            { 'name': 'Estudiante' },
+            { 'name': 'Docente' },
+            { 'name': 'Adminitrativo' },
         ]
     )
 
