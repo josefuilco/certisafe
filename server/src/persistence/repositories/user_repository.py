@@ -25,8 +25,9 @@ class UserRepository:
     # Public methods
     async def create(self, user: User) -> User:
         try:
+            user.id = str(uuid4())
             user_entity = UserEntity(
-                id=str(uuid4()),
+                id=user.id,
                 names=user.names,
                 surnames=user.surnames,
                 email=user.email,
@@ -39,7 +40,7 @@ class UserRepository:
             await self._session.commit()
             await self._session.refresh(user_entity)
 
-            return self._map_user_entity_to_user(user_entity)
+            return user
         except SQLAlchemyError:
             self._session.rollback()
             raise CreationConflictException('El usuario ya se encuentra registrado.')
