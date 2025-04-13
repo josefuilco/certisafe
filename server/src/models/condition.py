@@ -1,6 +1,7 @@
 from dataclasses import dataclass
+from typing import Optional
 
 @dataclass
 class Condition:
     id: int
-    name: str
+    name: Optional[str] = None

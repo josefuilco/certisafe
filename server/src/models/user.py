@@ -6,12 +6,12 @@ from .faculty import Faculty
 @dataclass
 class User:
     # Attributes
-    id: Optional[str]
+    id: str
     names: str
     surnames: str
     email: str
     cellphone: str
     dni: str
     # Relations
-    condition: Optional[Condition]
-    faculty: Optional[Faculty]
+    condition: Optional[Condition] = None
+    faculty: Optional[Faculty] = None

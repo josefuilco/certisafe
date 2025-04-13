@@ -1,13 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from .dependencies import get_condition_service
+from src.services import ConditionService
 
 condition_router = APIRouter(
     prefix="/api/conditions",
     tags=["conditions"],
 )
 
+# GET /api/conditions/
 @condition_router.get('/')
-async def get_conditions(condition_service=Depends(get_condition_service)):
+async def get_conditions(condition_service: ConditionService = Depends(get_condition_service)):
     try:
         conditions = await condition_service.get_all()
         return conditions

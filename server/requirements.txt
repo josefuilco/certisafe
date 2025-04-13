@@ -4,3 +4,4 @@ sqlmodel
 alembic
 asyncpg
 psycopg2
+bcrypt

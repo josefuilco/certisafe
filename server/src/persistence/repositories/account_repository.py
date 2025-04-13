@@ -10,7 +10,7 @@ class AccountRepository:
     def __init__(self, session: AsyncSession):
         self._session = session
 
-    async def create(self, user_id: str, password: str, role: Role) -> Account:
+    async def create(self, user_id: str, dni: str, password: str, role: Role) -> Account:
         try:
             account_entity = AccountEntity(
                 password=password,
@@ -22,8 +22,8 @@ class AccountRepository:
             await self._session.refresh(account_entity)
 
             current_account = Account(
-                dni=account_entity.dni,
-                password=account_entity.password,
+                dni=dni,
+                password=password,
             )
 
             return current_account

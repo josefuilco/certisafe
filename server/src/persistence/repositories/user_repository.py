@@ -25,7 +25,6 @@ class UserRepository:
     # Public methods
     async def create(self, user: User) -> User:
         try:
-            user.id = str(uuid4())
             user_entity = UserEntity(
                 id=user.id,
                 names=user.names,
