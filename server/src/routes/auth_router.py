@@ -19,7 +19,7 @@ async def sign_in(authentication: UserAuthDto):
 
 # post /api/auth/sign-up
 @auth_router.post('/sign-up')
-async def sign_up(create_user_dto: CreateUserDto, auth_service: AuthService = Depends(get_auth_service)):
+async def sign_up(create_user_dto: CreateUserDto, auth_service: AuthService = Depends(get_auth_service)) -> SuccessfulPresenter:
     try:
         new_user = User(
             id=str(uuid4()),
