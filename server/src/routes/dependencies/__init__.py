@@ -1,2 +1,3 @@
-from .condition_dependency import get_condition_service
 from .auth_dependency import get_auth_service
+from .condition_dependency import get_condition_service
+from .faculty_dependency import get_faculty_service
