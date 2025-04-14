@@ -68,7 +68,7 @@ def upgrade() -> None:
     )
     op.create_table('accounts',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('password', sqlmodel.sql.sqltypes.AutoString(length=64), nullable=False),
+    sa.Column('password', sqlmodel.sql.sqltypes.AutoString(length=60), nullable=False),
     sa.Column('active', sa.Boolean(), nullable=False),
     sa.Column('user_id', sqlmodel.sql.sqltypes.AutoString(), nullable=False),
     sa.Column('role_id', sa.Integer(), nullable=False),

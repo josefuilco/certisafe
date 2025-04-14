@@ -10,7 +10,7 @@ class AccountEntity(SQLModel, table=True):
 
     # Attributes
     id: Optional[int] = Field(default=None, primary_key=True)
-    password: str = Field(max_length=64, nullable=False)
+    password: str = Field(max_length=60, nullable=False)
     active: bool = Field(default=True, nullable=False)
 
     # Foreign key
