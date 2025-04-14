@@ -40,7 +40,7 @@ async def sign_up(
             user=new_user,
             role=Role.ATTENDER
         )
-        response.headers['Authorization'] = jwt_service.encode({
+        response.headers['x-api-token'] = jwt_service.encode({
             'user_id': new_user.id,
             'role_id': new_account.role_id,
             'exp': 4 * 60 * 60,

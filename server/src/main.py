@@ -19,14 +19,10 @@ app.add_middleware(
     allow_origins=[env.ORIGIN_CLIENT],
     allow_methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     allow_headers=['Authorization', 'Content-Type'],
-    expose_headers=['Authorization']
+    expose_headers=['x-api-token']
 )
 
 # Includes routes
 app.include_router(auth_router)
 app.include_router(condition_router)
 app.include_router(faculty_router)
-
-@app.get('/')
-async def root():
-    return {'message': 'Hello World!'}
