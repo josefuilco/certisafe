@@ -27,8 +27,8 @@ def upgrade() -> None:
     op.bulk_insert(
         role_table,
         [
-           { 'name': 'colaborador' },
-           { 'name': 'asistente' } 
+           { 'name': 'Colaborador' },
+           { 'name': 'Asistente' } 
         ]
     )
 
