@@ -58,3 +58,16 @@ class AccountRepository:
 
         account_entity.password = new_password
         await self._session.commit()
+
+    async def get_role_by_user_id(self, user_id: str) -> Role:
+        statement = (
+            select(AccountEntity.role_id)
+            .where(AccountEntity.user_id == user_id)
+        )
+        result = await self._session.execute(statement)
+        role_id = result.scalar_one_or_none()
+
+        if not role_id:
+            raise AccountNotFoundException()
+
+        return Role(role_id)

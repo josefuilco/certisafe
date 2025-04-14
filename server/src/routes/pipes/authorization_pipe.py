@@ -1,13 +1,14 @@
 from fastapi import Depends, Request, HTTPException, status
 from src.services import JWTService
 from ..dependencies import get_jwt_service
-from ..dtos import AuthenticationDto
+from src.services.dtos import AuthenticationDto
 
 def use_authorization_pipe(
     request: Request,
     jwt_service: JWTService = Depends(get_jwt_service)
 ) -> AuthenticationDto:
     auth_header = request.headers['Authorization']
+    # Validations
     if not auth_header or not auth_header.startswith('Bearer '):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
