@@ -12,7 +12,7 @@ auth_router = APIRouter(
     tags=['auth'],
 )
 
-# POST /auth/sign-in
+# POST /api/auth/sign-in
 @auth_router.post('/sign-in')
 async def sign_in(authentication: UserAuthDto):
     return authentication
@@ -36,7 +36,7 @@ async def sign_up(create_user_dto: CreateUserDto, auth_service: AuthService = De
             role=Role.ATTENDER
         )
         return SuccessfulPresenter(
-            message=f'Su cuenta con el nombre de usuario {new_account.dni} se ha registrado correctamente.'
+            message=f'Usuario con número de documento: {new_account.dni} - Registrado.'
         )
     except HTTPException as e:
         raise HTTPException(
