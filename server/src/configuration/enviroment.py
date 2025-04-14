@@ -11,6 +11,7 @@ class Enviroment(BaseModel):
     POSTGRES_USER: str = Field(min_length=1)
     POSTGRES_PASSWORD: str = Field(min_length=1)
     POSTGRES_DB: str = Field(min_length=1)
+    JWT_SECRET: str = Field(min_length=1)
 
 env = Enviroment(
     ORIGIN_CLIENT=os.getenv("ORIGIN_CLIENT"),
@@ -18,5 +19,6 @@ env = Enviroment(
     POSTGRES_PORT=int(os.getenv("POSTGRES_PORT")),
     POSTGRES_USER=os.getenv("POSTGRES_USER"),
     POSTGRES_PASSWORD=os.getenv("POSTGRES_PASSWORD"),
-    POSTGRES_DB=os.getenv("POSTGRES_DB")
+    POSTGRES_DB=os.getenv("POSTGRES_DB"),
+    JWT_SECRET=os.getenv("JWT_SECRET"),
 )

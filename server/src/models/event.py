@@ -4,7 +4,7 @@ from datetime import date, time
 
 @dataclass
 class Event:
-    id: Optional[str]
+    id: str
     name: str
     capacity: int
     description: Optional[str]

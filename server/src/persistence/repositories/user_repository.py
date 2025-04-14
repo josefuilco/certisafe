@@ -44,7 +44,7 @@ class UserRepository:
             self._session.rollback()
             raise CreationConflictException('El usuario ya se encuentra registrado.')
     
-    async def find_by_id(self, user_id: str) -> User:
+    async def get_by_id(self, user_id: str) -> User:
         statement = (
             select(UserEntity)
             .where(UserEntity.id == user_id)
@@ -65,7 +65,7 @@ class UserRepository:
 
         return user_found
     
-    async def find_id_by_dni(self, dni: str) -> str:
+    async def get_id_by_dni(self, dni: str) -> str:
         statement = select(UserEntity.id).where(UserEntity.dni == dni)
         result = await self._session.execute(statement)
         user_id = result.scalar_one_or_none()

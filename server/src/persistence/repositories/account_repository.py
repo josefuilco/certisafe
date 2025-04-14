@@ -24,6 +24,7 @@ class AccountRepository:
             current_account = Account(
                 dni=dni,
                 password=password,
+                role_id=role.value
             )
 
             return current_account
@@ -31,7 +32,7 @@ class AccountRepository:
             self._session.rollback()
             raise CreationConflictException('El usuario ya se encuentra registrado.')
     
-    async def find_password_by_user_id(self, user_id: str) -> str:
+    async def get_password_by_user_id(self, user_id: str) -> str:
         statement = (
             select(AccountEntity.password)
             .where(AccountEntity.user_id == user_id)

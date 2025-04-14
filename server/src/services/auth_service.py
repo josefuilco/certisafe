@@ -13,7 +13,7 @@ class AuthService:
         # Encrypt the password using bcrypt
         encrypted_password = hashpw(
             new_user.dni.encode('utf-8'),
-            gensalt()
+            gensalt(rounds=10)
         ).decode('utf-8')
         # Create the account with the encrypted password
         new_account = await self._account_repository.create(
